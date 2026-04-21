@@ -24,6 +24,7 @@ export default function DataSantriPage() {
     const [isEditMode, setIsEditMode] = useState(false);
     const [filterGender, setFilterGender] = useState<string>("all");
     const [filterKelas, setFilterKelas] = useState<string>("all");
+    const [searchName, setSearchName] = useState<string>("");
 
     // Form State
     const [formData, setFormData] = useState({
@@ -48,7 +49,7 @@ export default function DataSantriPage() {
             .from('santri')
             .select('*')
             .order('nis', { ascending: true }); // Order by NIS
-        
+
         if (error) console.error("Error fetching santri:", error);
         else setSantriList(data || []);
         setIsLoading(false);
@@ -96,16 +97,16 @@ export default function DataSantriPage() {
 
     const handleAdd = () => {
         setIsEditMode(false);
-        setFormData({ 
-            id: 0, 
-            nis: "", 
-            name: "", 
-            jenisKelamin: "", 
-            tanggalLahir: "", 
-            password: "", 
-            kelas: "", 
-            alamat: "", 
-            namaWali: "" 
+        setFormData({
+            id: 0,
+            nis: "",
+            name: "",
+            jenisKelamin: "",
+            tanggalLahir: "",
+            password: "",
+            kelas: "",
+            alamat: "",
+            namaWali: ""
         });
         setIsModalOpen(true);
     };
@@ -173,9 +174,9 @@ export default function DataSantriPage() {
             // Add logic
             // Ensure NIS is generated if missing (though form handles it)
             if (!dbData.nis) {
-                 // Fallback if user didn't select gender properly or something
-                 alert("NIS belum terbentuk. Pastikan pilih jenis kelamin.");
-                 return;
+                // Fallback if user didn't select gender properly or something
+                alert("NIS belum terbentuk. Pastikan pilih jenis kelamin.");
+                return;
             }
 
             const { data: newSantri, error } = await supabase
@@ -186,7 +187,7 @@ export default function DataSantriPage() {
 
             if (error) {
                 alert("Gagal menambah data! (Cek apakah NIS sudah ada)");
-                console.error(error);
+                console.log(error);
             } else {
                 // Auto-generate payments for existing batches of current year
                 try {
@@ -201,24 +202,24 @@ export default function DataSantriPage() {
                     if (batchError) {
                         alert("Debug Error fetching batches: " + batchError.message);
                     } else if (batches && batches.length > 0) {
-                         alert(`Debug: Ditemukan ${batches.length} tagihan batch untuk tahun ${currentYear}. Membuat pembayaran...`); 
+                        alert(`Debug: Ditemukan ${batches.length} tagihan batch untuk tahun ${currentYear}. Membuat pembayaran...`);
 
-                         const paymentPayloads = batches.map((batch: any) => ({
-                             santri_id: newSantri.id,
-                             tagihan_batch_id: batch.id,
-                             total_tagihan: batch.total, 
-                             dibayarkan: 0
-                         }));
-                         
-                         const { error: paymentError } = await supabase.from('pembayaran').insert(paymentPayloads);
-                         if (paymentError) {
+                        const paymentPayloads = batches.map((batch: any) => ({
+                            santri_id: newSantri.id,
+                            tagihan_batch_id: batch.id,
+                            total_tagihan: batch.total,
+                            dibayarkan: 0
+                        }));
+
+                        const { error: paymentError } = await supabase.from('pembayaran').insert(paymentPayloads);
+                        if (paymentError) {
                             alert("Debug Error creating payments: " + paymentError.message);
                             console.error("Error creating payments:", paymentError);
-                         } else {
-                            alert("Debug: Pembayaran berhasil dibuat otomatis."); 
-                         }
+                        } else {
+                            alert("Debug: Pembayaran berhasil dibuat otomatis.");
+                        }
                     } else {
-                        alert(`Debug: TIDAK ada tagihan batch ditemukan untuk tahun ${currentYear}. Cek tabel tagihan_batch.`); 
+                        alert(`Debug: TIDAK ada tagihan batch ditemukan untuk tahun ${currentYear}. Cek tabel tagihan_batch.`);
                     }
                 } catch (paymentErr: any) {
                     console.error("Payment generation error:", paymentErr);
@@ -275,8 +276,19 @@ export default function DataSantriPage() {
                             <option value="Musyawirin">Musyawirin</option>
                         </select>
                     </div>
-                    <span className={styles.filterInfo}>
-                        Menampilkan {santriList.filter(s => (filterGender === "all" || s.jenis_kelamin === filterGender) && (filterKelas === "all" || s.kelas === filterKelas)).length} dari {santriList.length} santri
+                    <div className={styles.filterItem} style={{ flexGrow: 1, minWidth: '200px', marginLeft: '12px' }}>
+                        <label className={styles.filterLabel}>Pencarian Nama</label>
+                        <input
+                            type="text"
+                            className={styles.filterSelect}
+                            placeholder="Cari nama santri..."
+                            value={searchName}
+                            onChange={(e) => setSearchName(e.target.value)}
+                            style={{ width: '100%', cursor: 'text' }}
+                        />
+                    </div>
+                    <span className={styles.filterInfo} style={{ marginLeft: 'auto' }}>
+                        Menampilkan {santriList.filter(s => (filterGender === "all" || s.jenis_kelamin === filterGender) && (filterKelas === "all" || s.kelas === filterKelas) && (searchName === "" || s.nama.toLowerCase().includes(searchName.toLowerCase()))).length} dari {santriList.length} santri
                     </span>
                 </div>
                 <table className={styles.table}>
@@ -293,7 +305,11 @@ export default function DataSantriPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {santriList.filter(s => (filterGender === "all" || s.jenis_kelamin === filterGender) && (filterKelas === "all" || s.kelas === filterKelas)).map((santri) => (
+                        {santriList.filter(s =>
+                            (filterGender === "all" || s.jenis_kelamin === filterGender) &&
+                            (filterKelas === "all" || s.kelas === filterKelas) &&
+                            (searchName === "" || s.nama.toLowerCase().includes(searchName.toLowerCase()))
+                        ).map((santri) => (
                             <tr key={santri.id}>
                                 <td>{santri.nis}</td>
                                 <td>{santri.nama}</td>

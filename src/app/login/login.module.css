@@ -1,75 +1,99 @@
 /* ===========================
-   Login Page - Split Layout
+   Login Page - Minimalist Centered 
    =========================== */
 
 .container {
     display: flex;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-}
-
-/* ---------- Left Panel ---------- */
-.leftPanel {
-    position: relative;
-    width: 50%;
-    height: 100%;
-    flex-shrink: 0;
-}
-
-.backgroundImage {
-    object-fit: cover;
-    object-position: center;
-}
-
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 1;
-}
-
-/* ---------- Right Panel ---------- */
-.rightPanel {
-    flex: 1;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    background: #ffffff;
-    padding: 40px 24px;
-    overflow-y: auto;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #053b1f 0%, #0d7a3e 100%);
+    overflow: hidden;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
 }
 
-.formWrapper {
+.card {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    padding: 48px;
     width: 100%;
-    max-width: 400px;
+    max-width: 440px;
+    position: relative;
+    /* anti-gravity float */
+    animation: floating 6s ease-in-out infinite;
+    transition: transform 0.3s ease;
 }
 
-/* ---------- Logo Section ---------- */
+.shake {
+    animation: dropShake 0.6s cubic-bezier(.36, .07, .19, .97) both !important;
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(0.5deg);
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+@keyframes dropShake {
+    0% {
+        transform: translateY(0);
+    }
+
+    20% {
+        transform: translateY(15px) translateX(-5px) rotate(-1deg);
+    }
+
+    40% {
+        transform: translateY(15px) translateX(5px) rotate(1deg);
+    }
+
+    60% {
+        transform: translateY(15px) translateX(-5px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translateY(15px) translateX(5px) rotate(1deg);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
 .logoSection {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
 }
 
 .logo {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     object-fit: contain;
 }
 
 .title {
-    margin-top: 14px;
-    font-size: 16px;
+    margin-top: 16px;
+    font-size: 18px;
     font-weight: 700;
     text-align: center;
     color: #0D7A3E;
     line-height: 1.4;
-    letter-spacing: 0.5px;
 }
 
-/* ---------- Error Message ---------- */
 .errorMessage {
     padding: 12px 16px;
     background: #FEF2F2;
@@ -81,24 +105,33 @@
     text-align: center;
 }
 
-/* ---------- Form ---------- */
+.successMessage {
+    padding: 12px 16px;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 8px;
+    color: #059669;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
 .form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
 }
 
-/* ---------- Field Group ---------- */
 .fieldGroup {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 .label {
     font-size: 14px;
-    font-weight: 500;
-    color: #333;
+    font-weight: 600;
+    color: #374151;
 }
 
 .inputWrapper {
@@ -109,26 +142,26 @@
 
 .input {
     width: 100%;
-    padding: 12px 16px;
-    font-size: 14px;
-    color: #333;
-    background: #fff;
-    border: 1px solid #d0d5dd;
-    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 15px;
+    color: #1f2937;
+    background: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
     outline: none;
-    transition: border-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .input::placeholder {
-    color: #aab0b7;
+    color: #9ca3af;
 }
 
 .input:focus {
+    background: #ffffff;
     border-color: #0D9A4E;
-    box-shadow: 0 0 0 3px rgba(13, 154, 78, 0.1);
+    box-shadow: 0 0 0 4px rgba(13, 154, 78, 0.1);
 }
 
-/* ---------- Toggle Password ---------- */
 .togglePassword {
     position: absolute;
     right: 12px;
@@ -142,92 +175,40 @@
 }
 
 .togglePassword:hover svg {
-    stroke: #555;
+    stroke: #374151;
 }
 
-/* ---------- Options Row ---------- */
-.optionsRow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.checkboxLabel {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: #555;
-    cursor: pointer;
-}
-
-.checkbox {
-    width: 16px;
-    height: 16px;
-    accent-color: #0D9A4E;
-    cursor: pointer;
-}
-
-.forgotPassword {
-    font-size: 14px;
-    color: #0D9A4E;
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-.forgotPassword:hover {
-    color: #0a7a3c;
-    text-decoration: underline;
-}
-
-/* ---------- Login Button ---------- */
 .loginButton {
     width: 100%;
     padding: 14px;
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 16px;
     font-weight: 600;
     color: #fff;
-    background: #0D9A4E;
+    background: #0d7a3e;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background 0.2s ease, transform 0.1s ease;
 }
 
 .loginButton:hover {
-    background: #0a8742;
+    background: #065f2e;
 }
 
 .loginButton:active {
-    transform: scale(0.985);
+    transform: scale(0.98);
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
+.loginButton:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+}
 
-    .leftPanel {
-        width: 100%;
-        height: 200px;
-    }
-
-    .rightPanel {
-        padding: 32px 20px;
-    }
-
-    .logoSection {
-        margin-bottom: 24px;
-    }
-
-    .logo {
-        width: 100px;
-        height: 100px;
-    }
-
-    .title {
-        font-size: 14px;
+/* Responsive */
+@media (max-width: 640px) {
+    .card {
+        padding: 32px 24px;
     }
 }

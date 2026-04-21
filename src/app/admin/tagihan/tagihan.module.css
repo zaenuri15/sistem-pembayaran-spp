@@ -338,3 +338,37 @@
 .btnSave:hover {
     background-color: #05853e;
 }
+
+/* Action Buttons */
+.actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btnAction {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.btnEdit {
+    color: #6366F1;
+}
+
+.btnEdit:hover {
+    background-color: #EEF2FF;
+}
+
+.btnDelete {
+    color: #EF4444;
+}
+
+.btnDelete:hover {
+    background-color: #FEF2F2;
+}

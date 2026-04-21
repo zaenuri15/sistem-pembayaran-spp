@@ -33,6 +33,7 @@ export default function DashboardPage() {
     const [filterTahun, setFilterTahun] = useState<string>("all");
     const [filterKelas, setFilterKelas] = useState<string>("all");
     const [filterGender, setFilterGender] = useState<string>("all");
+    const [searchName, setSearchName] = useState<string>("");
 
     useEffect(() => {
         fetchData();
@@ -98,6 +99,7 @@ export default function DashboardPage() {
     const handleFilterTahun = (val: string) => { setFilterTahun(val); setCurrentPage(1); };
     const handleFilterKelas = (val: string) => { setFilterKelas(val); setCurrentPage(1); };
     const handleFilterGender = (val: string) => { setFilterGender(val); setCurrentPage(1); };
+    const handleSearchName = (val: string) => { setSearchName(val); setCurrentPage(1); };
 
     // Derive unique filter options from data
     const availableYears = [...new Set(santriList.map((s) => s.tahun))].sort((a, b) => b - a);
@@ -109,7 +111,8 @@ export default function DashboardPage() {
         const matchTahun = filterTahun === "all" || s.tahun === Number(filterTahun);
         const matchKelas = filterKelas === "all" || s.kelas === filterKelas;
         const matchGender = filterGender === "all" || s.jenisKelamin === filterGender;
-        return matchBulan && matchTahun && matchKelas && matchGender;
+        const matchName = searchName === "" || s.name.toLowerCase().includes(searchName.toLowerCase());
+        return matchBulan && matchTahun && matchKelas && matchGender && matchName;
     });
 
     // Pagination logic
@@ -158,12 +161,14 @@ export default function DashboardPage() {
         if (!selectedSantri) return;
 
         const amount = parseFloat(paymentAmount) || 0;
-        if (amount <= 0) {
-            alert("Masukkan jumlah pembayaran yang valid!");
+        const sisa = selectedSantri.totalTagihan - selectedSantri.dibayarkan;
+        const minPayment = Math.min(25000, sisa);
+
+        if (amount < minPayment) {
+            alert(`Jumlah pembayaran minimal adalah ${formatCurrency(minPayment)}!`);
             return;
         }
 
-        const sisa = selectedSantri.totalTagihan - selectedSantri.dibayarkan;
         if (amount > sisa) {
             alert(`Jumlah pembayaran melebihi sisa tagihan (${formatCurrency(sisa)})!`);
             return;
@@ -171,7 +176,7 @@ export default function DashboardPage() {
 
         try {
             const newDibayarkan = selectedSantri.dibayarkan + amount;
-            
+
             // Update Supabase
             const { error } = await supabase
                 .from('pembayaran')
@@ -312,6 +317,22 @@ export default function DashboardPage() {
                                 <option value="L">Laki-laki</option>
                                 <option value="P">Perempuan</option>
                             </select>
+                        </div>
+
+                        <div className={styles.filterItem} style={{ flexGrow: 1, minWidth: '200px', marginLeft: '12px' }}>
+                            <label className={styles.filterLabel}>Pencarian Nama</label>
+                            <div className={styles.searchWrapper} style={{ width: '100%' }}>
+                                <svg className={styles.searchIconSmall} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                                <input
+                                    type="text"
+                                    className={styles.tableSearch}
+                                    placeholder="Cari nama santri..."
+                                    value={searchName}
+                                    onChange={(e) => handleSearchName(e.target.value)}
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -520,8 +541,8 @@ export default function DashboardPage() {
                                             value={paymentAmount}
                                             onChange={(e) => setPaymentAmount(e.target.value)}
                                             className={`${styles.formInput} ${styles.formInputCurrency}`}
-                                            placeholder="0"
-                                            min="1"
+                                            placeholder="Contoh: 25000"
+                                            min={Math.min(25000, selectedSantri.totalTagihan - selectedSantri.dibayarkan)}
                                             max={selectedSantri.totalTagihan - selectedSantri.dibayarkan}
                                             required
                                         />

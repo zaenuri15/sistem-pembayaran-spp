@@ -430,7 +430,14 @@
 }
 
 .formInputCurrency {
-    padding-left: 36px;
+    padding-left: 38px !important;
+    -moz-appearance: textfield;
+}
+
+.formInputCurrency::-webkit-outer-spin-button,
+.formInputCurrency::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .inputHint {

@@ -20,6 +20,8 @@ export default function TagihanPage() {
     const [selectedYear, setSelectedYear] = useState<string>(String(new Date().getFullYear()));
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [editId, setEditId] = useState<number | null>(null);
     
     // Form State
     const [formData, setFormData] = useState({
@@ -93,35 +95,82 @@ export default function TagihanPage() {
         return new Date(0, monthIndex - 1).toLocaleString("id-ID", { month: "long" });
     };
 
+    const handleEdit = (batch: TagihanBatch) => {
+        setIsEditMode(true);
+        setEditId(batch.id);
+        setFormData({
+            bulan: batch.bulan,
+            tahun: batch.tahun,
+            spp: batch.spp.toString(),
+            kebersihan: batch.kebersihan.toString(),
+            konsumsi: batch.konsumsi.toString(),
+            pembangunan: batch.pembangunan.toString(),
+        });
+        setIsModalOpen(true);
+    };
+
+    const handleDelete = async (id: number) => {
+        if (confirm("Apakah Anda yakin ingin menghapus data tagihan ini?")) {
+            try {
+                const { supabase } = await import("@/lib/supabase");
+                const { error } = await supabase.from('tagihan_batch').delete().eq('id', id);
+                if (error) {
+                    alert("Gagal menghapus data!");
+                    console.error(error);
+                } else {
+                    fetchBatches();
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Terjadi kesalahan.");
+            }
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
 
         try {
-            const response = await fetch('/api/tagihan/batch', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
+            if (isEditMode && editId) {
+                const { supabase } = await import("@/lib/supabase");
+                const { error } = await supabase.from('tagihan_batch').update({
                     bulan: Number(formData.bulan),
                     tahun: Number(formData.tahun),
-                    spp: formData.spp,
-                    kebersihan: formData.kebersihan,
-                    konsumsi: formData.konsumsi,
-                    pembangunan: formData.pembangunan,
-                }),
-            });
+                    spp: parseFloat(formData.spp) || 0,
+                    kebersihan: parseFloat(formData.kebersihan) || 0,
+                    konsumsi: parseFloat(formData.konsumsi) || 0,
+                    pembangunan: parseFloat(formData.pembangunan) || 0,
+                    total: totalTagihan
+                }).eq('id', editId);
+                
+                if (error) throw error;
+                alert("Data tagihan berhasil diubah!");
+            } else {
+                const response = await fetch('/api/tagihan/batch', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        bulan: Number(formData.bulan),
+                        tahun: Number(formData.tahun),
+                        spp: formData.spp,
+                        kebersihan: formData.kebersihan,
+                        konsumsi: formData.konsumsi,
+                        pembangunan: formData.pembangunan,
+                    }),
+                });
 
-            const result = await response.json();
+                const result = await response.json();
 
-            if (!result.success) {
-                alert(result.error || 'Gagal membuat tagihan');
-                return;
+                if (!result.success) {
+                    alert(result.error || 'Gagal membuat tagihan');
+                    return;
+                }
+
+                alert(result.message || `Sukses! Tagihan berhasil dibuat.`);
             }
-
-            const { batch, santriCount } = result.data;
-            alert(result.message || `Sukses! Tagihan berhasil dibuat untuk ${santriCount} santri.`);
             
             fetchBatches(); // Refresh list
             setIsModalOpen(false);
@@ -148,7 +197,19 @@ export default function TagihanPage() {
         <div className={styles.pageContainer}>
             <div className={styles.header}>
                 <h1 className={styles.title}>Data Keuangan</h1>
-                <button className={styles.btnAdd} onClick={() => setIsModalOpen(true)}>
+                <button className={styles.btnAdd} onClick={() => {
+                    setIsEditMode(false);
+                    setEditId(null);
+                    setFormData({
+                        bulan: new Date().getMonth() + 1,
+                        tahun: new Date().getFullYear(),
+                        spp: "",
+                        kebersihan: "",
+                        konsumsi: "",
+                        pembangunan: "",
+                    });
+                    setIsModalOpen(true);
+                }}>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
                         <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -200,6 +261,7 @@ export default function TagihanPage() {
                             <th>Konsumsi</th>
                             <th>Pembangunan</th>
                             <th>Total Tagihan (Per Santri)</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -216,6 +278,30 @@ export default function TagihanPage() {
                                         {formatCurrency(batch.total)}
                                     </span>
                                 </td>
+                                <td>
+                                    <div className={styles.actions}>
+                                        <button
+                                            className={`${styles.btnAction} ${styles.btnEdit}`}
+                                            onClick={() => handleEdit(batch)}
+                                            title="Edit"
+                                        >
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                            </svg>
+                                        </button>
+                                        <button
+                                            className={`${styles.btnAction} ${styles.btnDelete}`}
+                                            onClick={() => handleDelete(batch.id)}
+                                            title="Hapus"
+                                        >
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
@@ -227,7 +313,7 @@ export default function TagihanPage() {
                 <div className={styles.modalOverlay}>
                     <div className={styles.modalContent}>
                         <div className={styles.modalHeader}>
-                            <h3 className={styles.modalTitle}>Input Tagihan Bulanan</h3>
+                            <h3 className={styles.modalTitle}>{isEditMode ? "Edit Tagihan Bulanan" : "Input Tagihan Bulanan"}</h3>
                             <button className={styles.closeButton} onClick={() => setIsModalOpen(false)}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="18" y1="6" x2="6" y2="18"></line>

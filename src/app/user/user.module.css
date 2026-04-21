@@ -1,6 +1,7 @@
 /* User Layout */
 .layoutContainer {
-    min-height: 100vh;
+    height: 100vh;
+    overflow-y: auto;
     background-color: #F3F4F6;
 }
 
@@ -186,6 +187,328 @@
     margin-top: 2px;
 }
 
+/* Pay Button */
+.payButton {
+    background-color: #0D9A4E;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.payButton:hover {
+    background-color: #05853e;
+}
+
+/* Bank Account Info Section */
+.bankInfoCard {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    padding: 24px;
+    margin-top: 24px;
+}
+
+.bankInfoTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.bankCardsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.bankCard {
+    background: linear-gradient(135deg, #0D9A4E 0%, #059d4a 60%, #027a3b 100%);
+    border-radius: 14px;
+    padding: 20px 24px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(13, 154, 78, 0.25);
+}
+
+.bankCard::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.bankCard::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.bankCardPutri {
+    background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 60%, #5B21B6 100%);
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25);
+}
+
+.bankCardLabel {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.75;
+    margin-bottom: 10px;
+}
+
+.bankCardLogoRow {
+    margin-bottom: 16px;
+}
+
+.bankCardBankName {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.bankCardAccountRow {
+    margin-bottom: 10px;
+}
+
+.bankCardAccountNum {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.bankCardOwner {
+    font-size: 12px;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.bankInfoNote {
+    font-size: 13px;
+    color: #92400E;
+    background-color: #FEF3C7;
+    border: 1px solid #FDE68A;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 0 0 20px 0;
+}
+
+/* Contact Section */
+.contactSection {
+    border-top: 1px solid #E5E7EB;
+    padding-top: 20px;
+}
+
+.contactHeading {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 14px 0;
+}
+
+.contactGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.contactCard {
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+
+.contactCardPutri {
+    background: #F5F3FF;
+    border-color: #DDD6FE;
+}
+
+.contactCardHeader {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #065F46;
+    margin-bottom: 8px;
+}
+
+.contactCardPutri .contactCardHeader {
+    color: #5B21B6;
+}
+
+.contactName {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.contactWa {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #25D366;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    margin-bottom: 6px;
+    transition: background-color 0.2s;
+}
+
+.contactWa:hover {
+    background-color: #1ebe5d;
+}
+
+.contactWaPutri {
+    background-color: #7C3AED;
+}
+
+.contactWaPutri:hover {
+    background-color: #6D28D9;
+}
+
+.contactNote {
+    font-size: 11px;
+    color: #9CA3AF;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+/* Service Info */
+.serviceInfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    background: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.serviceBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.serviceBlockTitle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #374151;
+}
+
+.serviceHours {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.serviceHours>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+}
+
+.serviceDay {
+    color: #6B7280;
+    font-weight: 500;
+    min-width: 130px;
+}
+
+.serviceTime {
+    font-weight: 700;
+    color: #111827;
+}
+
+.serviceClosed {
+    font-weight: 600;
+    color: #EF4444;
+}
+
+.serviceLocation {
+    font-size: 13px;
+    color: #374151;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Instructions */
+.instructionsCard {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    padding: 24px;
+    margin-top: 24px;
+}
+
+.instructionsTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #E5E7EB;
+    padding-bottom: 12px;
+}
+
+.instructionsList {
+    margin-left: 20px;
+    color: #374151;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.instructionsList li {
+    margin-bottom: 8px;
+}
+
+.bankList,
+.statusList {
+    margin-left: 20px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    list-style-type: disc;
+}
+
+.bankList li,
+.statusList li {
+    margin-bottom: 4px;
+}
+
 /* Footer */
 .footer {
     text-align: center;
@@ -198,6 +521,28 @@
 @media (max-width: 768px) {
     .summaryGrid {
         grid-template-columns: 1fr;
+    }
+
+    .bankCardsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .bankCardAccountNum {
+        font-size: 16px;
+    }
+
+    .contactGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .serviceInfo {
+        grid-template-columns: 1fr;
+    }
+
+    .serviceHours>div {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
     }
 
     .navbar {

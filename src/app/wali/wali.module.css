@@ -25,9 +25,9 @@
 }
 
 .navTitle {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
-    color: #0D7A3E;
+    color: #0D9A4E;
 }
 
 .navSubtitle {
@@ -236,48 +236,165 @@
 }
 
 /* ---------- Print Styles ---------- */
+.printOnlyReport {
+    display: none;
+}
+
 @media print {
-    .navbar {
+    .screenOnly {
         display: none !important;
     }
-
-    .btnExport {
-        display: none !important;
-    }
-
-    .layoutContainer {
+    .printOnlyReport {
+        display: block !important;
         background: #fff;
-    }
-
-    .mainContent {
         padding: 0;
-        max-width: 100%;
+        color: #000;
     }
+    .kTable th { background: transparent !important; }
+}
 
-    .summaryCard {
-        box-shadow: none;
-        border: 1px solid #D1D5DB;
-    }
+/* ---------- Kwitansi Component ---------- */
+.btnActionCetak {
+    background: #0D9A4E;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
 
-    .tableCard {
-        box-shadow: none;
-        border: 1px solid #D1D5DB;
-    }
+.btnActionCetak:hover {
+    background: #0a8742;
+}
 
-    .pageHeader {
-        margin-bottom: 20px;
-    }
+.hideForKwitansi {
+    display: none !important;
+}
 
-    .pageHeader::before {
-        content: "Laporan Pembayaran - PP Inayatullah";
-        display: block;
-        font-size: 18px;
-        font-weight: 700;
-        text-align: center;
-        margin-bottom: 16px;
-        color: #0D7A3E;
-        width: 100%;
+.kwitansiContainer {
+    background: #fff;
+    padding: 40px;
+    color: #000;
+}
+
+.kwitansiWrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 30px;
+}
+
+.kTopHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.kLogoAndText {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.kSchoolInfo {
+    line-height: 1.4;
+}
+
+.kSchoolName {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.kTitle {
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.kDetailsGrid {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.kGroup {
+    flex: 1;
+}
+
+.kLabel {
+    display: inline-block;
+    width: 120px;
+}
+
+.kTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.kTable th, .kTable td {
+    padding: 8px 12px;
+    border: 1px solid #000;
+}
+
+.kTable th {
+    background: #f3f4f6;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #000;
+}
+
+.kTable tfoot td {
+    border-top: 2px solid #000;
+}
+
+.kBottomGrid {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.kTerbilangBox {
+    flex: 1;
+    border: 1px solid #000;
+    padding: 12px;
+    margin-right: 40px;
+}
+
+.kTerbilangText {
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+    background: #f3f4f6;
+    padding: 8px;
+}
+
+.kSignatureBox {
+    width: 250px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Update Print Styles for Kwitansi */
+@media print {
+    .kwitansiContainer {
+        padding: 0;
     }
+    .kwitansiWrapper {
+        border: none;
+        padding: 0;
+    }
+    .kTable th { background: transparent; }
+    .kTerbilangText { background: transparent; border: 1px dashed #000; }
 }
 
 /* ---------- Responsive ---------- */

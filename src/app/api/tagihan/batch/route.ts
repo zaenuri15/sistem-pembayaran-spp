@@ -52,14 +52,13 @@ export async function POST(request: NextRequest) {
                 kebersihan: kebersihanAmount,
                 konsumsi: konsumsiAmount,
                 pembangunan: pembangunanAmount,
-                total: totalAmount,
             }])
             .select()
             .single();
 
         if (batchError || !batchData) {
             console.error('Error creating batch:', batchError);
-            return errorResponse('Gagal membuat batch tagihan', 500);
+            return errorResponse(`Gagal membuat batch tagihan: ${batchError?.message || 'Unknown Error'}`, 500);
         }
 
         // Get all active santri
