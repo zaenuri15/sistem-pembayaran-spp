@@ -109,7 +109,7 @@ export default function LoginPage() {
             <div className={`${styles.card} ${shake ? styles.shake : ""}`}>
                 <div className={styles.logoSection}>
                     <Image
-                        src="/images/logo_inay.png"
+                        src="/images/logo.png"
                         alt="Logo Pondok Pesantren Inayatullah"
                         width={100}
                         height={100}

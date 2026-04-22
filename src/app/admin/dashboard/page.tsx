@@ -15,6 +15,7 @@ interface SantriData {
     tahun: number;
     totalTagihan: number;
     dibayarkan: number;
+    email?: string;
 }
 
 
@@ -52,7 +53,8 @@ export default function DashboardPage() {
                         nis,
                         nama,
                         jenis_kelamin,
-                        kelas
+                        kelas,
+                        email
                     ),
                     tagihan_batch (
                         bulan,
@@ -77,7 +79,8 @@ export default function DashboardPage() {
                     bulan: item.tagihan_batch.bulan,
                     tahun: item.tagihan_batch.tahun,
                     totalTagihan: item.tagihan_batch.total,
-                    dibayarkan: item.dibayarkan
+                    dibayarkan: item.dibayarkan,
+                    email: item.santri.email
                 }));
                 // Sort by latest year/month/name
                 formattedData.sort((a, b) => {
@@ -184,6 +187,36 @@ export default function DashboardPage() {
                 .eq('id', selectedSantri.id);
 
             if (error) throw error;
+
+            const newSisa = selectedSantri.totalTagihan - newDibayarkan;
+
+            // Trigger Email (if email exists)
+            if (selectedSantri.email) {
+                try {
+                    console.log("Mengirim email kwitansi ke:", selectedSantri.email);
+                    const response = await fetch('/api/send-receipt', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            emailTujuan: selectedSantri.email,
+                            namaSantri: selectedSantri.name,
+                            nis: selectedSantri.nis,
+                            kelas: selectedSantri.kelas,
+                            bulan: getMonthName(selectedSantri.bulan),
+                            tahun: String(selectedSantri.tahun),
+                            nominalBayar: amount,
+                            totalTagihan: selectedSantri.totalTagihan,
+                            sisaTagihan: newSisa
+                        })
+                    });
+                    const resData = await response.json();
+                    if (!resData.success) {
+                        console.warn("Email gagal dikirim:", resData.error);
+                    }
+                } catch (emailErr) {
+                    console.error("Fetch API email error:", emailErr);
+                }
+            }
 
             // Update Local State
             setSantriList((prev) =>

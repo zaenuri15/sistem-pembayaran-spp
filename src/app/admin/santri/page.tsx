@@ -15,6 +15,7 @@ interface Santri {
     kelas: string;
     alamat: string;
     nama_wali: string; // DB: 'nama_wali'
+    email: string; // DB: 'email'
 }
 
 export default function DataSantriPage() {
@@ -36,7 +37,8 @@ export default function DataSantriPage() {
         password: "",
         kelas: "",
         alamat: "",
-        namaWali: ""
+        namaWali: "",
+        email: ""
     });
 
     useEffect(() => {
@@ -91,6 +93,11 @@ export default function DataSantriPage() {
             if (name === "tanggalLahir") {
                 updated.password = generatePassword(value);
             }
+            // Auto-generate email from name
+            if (name === "name" && !isEditMode) {
+                const generatedEmail = value.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '') + "@gmail.com";
+                updated.email = generatedEmail;
+            }
             return updated;
         });
     };
@@ -106,7 +113,8 @@ export default function DataSantriPage() {
             password: "",
             kelas: "",
             alamat: "",
-            namaWali: ""
+            namaWali: "",
+            email: ""
         });
         setIsModalOpen(true);
     };
@@ -123,7 +131,8 @@ export default function DataSantriPage() {
             password: santri.password,
             kelas: santri.kelas,
             alamat: santri.alamat,
-            namaWali: santri.nama_wali
+            namaWali: santri.nama_wali,
+            email: santri.email || ""
         });
         setIsModalOpen(true);
     };
@@ -152,7 +161,8 @@ export default function DataSantriPage() {
             password: formData.password,
             kelas: formData.kelas,
             alamat: formData.alamat,
-            nama_wali: formData.namaWali
+            nama_wali: formData.namaWali,
+            email: formData.email
         };
 
         if (isEditMode) {
@@ -301,6 +311,7 @@ export default function DataSantriPage() {
                             <th>Kelas</th>
                             <th>Alamat</th>
                             <th>Nama Wali</th>
+                            <th>Gmail</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -318,6 +329,7 @@ export default function DataSantriPage() {
                                 <td>{santri.kelas}</td>
                                 <td>{santri.alamat}</td>
                                 <td>{santri.nama_wali}</td>
+                                <td>{santri.email || "-"}</td>
                                 <td>
                                     <div className={styles.actions}>
                                         <button
@@ -490,6 +502,21 @@ export default function DataSantriPage() {
                                             required
                                         />
                                         <span className={styles.inputHint}>Username login wali santri</span>
+                                    </div>
+
+                                    <div className={styles.formGroup}>
+                                        <label htmlFor="email" className={styles.label}>Gmail <span className={styles.required}>*</span></label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleInputChange}
+                                            className={styles.input}
+                                            placeholder="Masukkan alamat gmail santri"
+                                            required
+                                        />
+                                        <span className={styles.inputHint}>Otomatis dibuat berdasarkan nama (bisa diubah)</span>
                                     </div>
                                 </div>
                             </div>
