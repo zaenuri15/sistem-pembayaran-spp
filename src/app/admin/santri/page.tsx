@@ -379,19 +379,18 @@ export default function DataSantriPage() {
                             <div className={styles.modalBody}>
                                 <div className={styles.formGrid}>
                                     <div className={styles.formGroup}>
-                                        <label htmlFor="id" className={styles.label}>NIS (Nomor Induk Santri)</label>
+                                        <label htmlFor="nis" className={styles.label}>NIS (Nomor Induk Santri)</label>
                                         <input
                                             type="text"
-                                            id="id"
-                                            name="id"
-                                            value={formData.id || ""}
+                                            id="nis"
+                                            name="nis"
+                                            value={formData.nis}
+                                            onChange={handleInputChange}
                                             className={styles.input}
-                                            placeholder="Otomatis terisi"
-                                            readOnly
-                                            style={{ backgroundColor: '#F3F4F6', cursor: 'not-allowed' }}
+                                            placeholder="Masukkan NIS"
                                         />
                                         {!isEditMode && (
-                                            <span className={styles.inputHint}>NIS akan otomatis digenerate setelah memilih jenis kelamin</span>
+                                            <span className={styles.inputHint}>NIS akan otomatis digenerate setelah memilih jenis kelamin (bisa diubah)</span>
                                         )}
                                     </div>
 
@@ -418,8 +417,6 @@ export default function DataSantriPage() {
                                             onChange={handleInputChange}
                                             className={styles.input}
                                             required
-                                            disabled={isEditMode}
-                                            style={isEditMode ? { backgroundColor: '#F3F4F6', cursor: 'not-allowed' } : {}}
                                         >
                                             <option value="" disabled>Pilih Jenis Kelamin</option>
                                             <option value="L">Laki-laki (01)</option>

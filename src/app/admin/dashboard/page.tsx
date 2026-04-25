@@ -82,10 +82,10 @@ export default function DashboardPage() {
                     dibayarkan: item.dibayarkan,
                     email: item.santri.email
                 }));
-                // Sort by latest year/month/name
+                // Sort by latest year, then month ascending (Jan -> Dec), then name
                 formattedData.sort((a, b) => {
                     if (a.tahun !== b.tahun) return b.tahun - a.tahun;
-                    if (a.bulan !== b.bulan) return b.bulan - a.bulan;
+                    if (a.bulan !== b.bulan) return a.bulan - b.bulan;
                     return a.name.localeCompare(b.name);
                 });
                 setSantriList(formattedData);

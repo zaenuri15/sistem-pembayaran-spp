@@ -141,7 +141,6 @@ export default function TagihanPage() {
                     kebersihan: parseFloat(formData.kebersihan) || 0,
                     konsumsi: parseFloat(formData.konsumsi) || 0,
                     pembangunan: parseFloat(formData.pembangunan) || 0,
-                    total: totalTagihan
                 }).eq('id', editId);
                 
                 if (error) throw error;
