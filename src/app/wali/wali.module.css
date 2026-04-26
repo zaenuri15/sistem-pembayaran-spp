@@ -3,8 +3,9 @@
    =========================== */
 
 .layoutContainer {
-    min-height: 100vh;
+    height: 100vh;
     background: #F3F4F6;
+    overflow-y: auto;
 }
 
 /* ---------- Navbar ---------- */
@@ -135,6 +136,162 @@
 
 .summaryValueRed {
     color: #DC2626;
+}
+
+/* ---------- Accordions & Informasi ---------- */
+.infoSection {
+    margin-bottom: 24px;
+}
+
+.infoMainTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.accordionItem {
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #E5E7EB;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.accordionHeader {
+    width: 100%;
+    text-align: left;
+    padding: 16px 20px;
+    background: #fff;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    transition: background 0.2s;
+}
+
+.accordionHeader:hover {
+    background: #F9FAFB;
+}
+
+.accordionHeaderLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.accordionIcon {
+    transition: transform 0.3s ease;
+    color: #6B7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accordionIcon.open {
+    transform: rotate(180deg);
+}
+
+.accordionContent {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    background: #FAFAFA;
+}
+
+.accordionContent.open {
+    max-height: 3000px;
+}
+
+.accordionInner {
+    padding: 20px;
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.6;
+    border-top: 1px solid #F3F4F6;
+}
+
+.infoTitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0D9A4E;
+    margin: 20px 0 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed #D1D5DB;
+}
+
+.infoTitle:first-child {
+    margin-top: 0;
+}
+
+.infoList {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.infoList li {
+    margin-bottom: 6px;
+}
+
+.infoSubList {
+    margin: 6px 0 6px 0;
+    padding-left: 20px;
+    list-style-type: circle;
+}
+
+.infoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.infoCard {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.infoCardTitle {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1F2937;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.infoHighlight {
+    background: #FEF3C7;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border-left: 4px solid #F59E0B;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #92400E;
+}
+
+.badgeSm {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 8px;
 }
 
 /* ---------- Table ---------- */
