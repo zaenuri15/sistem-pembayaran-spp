@@ -26,7 +26,37 @@
 .statHeader {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.statIcon {
+    width: 48px;
+    height: 48px;
+    background-color: #ECFDF5;
+    color: #0D9A4E;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.statIconSisa {
+    background-color: #FEF2F2;
+    color: #DC2626;
+}
+
+.statIconTotal {
+    background-color: #EFF6FF;
+    color: #2563EB;
+}
+
+.statInfo {
+    display: flex;
+    flex-direction: column;
 }
 
 .statValue {

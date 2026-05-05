@@ -250,8 +250,11 @@ export default function DashboardPage() {
                 {/* Card 1: Pemasukan */}
                 <div className={styles.statCard}>
                     <div className={styles.statHeader}>
-                        <h2 className={styles.statValue}>{formatCurrency(totalPemasukan).replace("Rp", "").trim()}</h2>
-                        <span className={styles.statLabel}>Pemasukan</span>
+                        <div className={styles.statInfo}>
+                            <h2 className={styles.statValue}>{formatCurrency(totalPemasukan).replace("Rp", "").trim()}</h2>
+                            <span className={styles.statLabel}>Pemasukan</span>
+                        </div>
+                        <div className={styles.statIcon}>Rp</div>
                     </div>
                     <div className={styles.progressBarContainer}>
                         <div className={styles.progressLabel}>
@@ -264,8 +267,11 @@ export default function DashboardPage() {
                 {/* Card 2: Sisa Tagihan */}
                 <div className={styles.statCard}>
                     <div className={styles.statHeader}>
-                        <h2 className={styles.statValue}>{formatCurrency(totalSisa).replace("Rp", "").trim()}</h2>
-                        <span className={styles.statLabel}>Sisa Tagihan</span>
+                        <div className={styles.statInfo}>
+                            <h2 className={styles.statValue}>{formatCurrency(totalSisa).replace("Rp", "").trim()}</h2>
+                            <span className={styles.statLabel}>Sisa Tagihan</span>
+                        </div>
+                        <div className={`${styles.statIcon} ${styles.statIconSisa}`}>Rp</div>
                     </div>
                     <div className={styles.progressBarContainer}>
                         <div className={styles.progressLabel}>
@@ -278,8 +284,11 @@ export default function DashboardPage() {
                 {/* Card 3: Total Tagihan */}
                 <div className={styles.statCard}>
                     <div className={styles.statHeader}>
-                        <h2 className={styles.statValue}>{formatCurrency(totalTagihanAll).replace("Rp", "").trim()}</h2>
-                        <span className={styles.statLabel}>Total Tagihan</span>
+                        <div className={styles.statInfo}>
+                            <h2 className={styles.statValue}>{formatCurrency(totalTagihanAll).replace("Rp", "").trim()}</h2>
+                            <span className={styles.statLabel}>Total Tagihan</span>
+                        </div>
+                        <div className={`${styles.statIcon} ${styles.statIconTotal}`}>Rp</div>
                     </div>
                     <div className={styles.progressBarContainer}>
                         <div className={styles.progressLabel}>
