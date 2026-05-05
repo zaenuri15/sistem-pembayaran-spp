@@ -1235,4 +1235,29 @@
         grid-template-columns: 1fr;
     }
 }
+
+@media print {
+    .sidebar,
+    .topbar,
+    .hamburgerBtn,
+    .mobileOverlay {
+        display: none !important;
+    }
+    .layoutContainer {
+        display: block !important;
+        height: auto !important;
+        width: auto !important;
+        background-color: #fff !important;
+    }
+    .contentArea {
+        display: block !important;
+        overflow: visible !important;
+        height: auto !important;
+    }
+    .mainContent {
+        padding: 0 !important;
+        overflow: visible !important;
+        height: auto !important;
+    }
+}
 

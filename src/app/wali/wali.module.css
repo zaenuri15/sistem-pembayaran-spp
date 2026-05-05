@@ -474,14 +474,31 @@
 }
 
 @media print {
-    .screenOnly {
+    .screenOnly,
+    .sidebar,
+    .topbar,
+    .mainContent,
+    .footer,
+    .mobileOverlay {
         display: none !important;
     }
+    
+    .layoutContainer,
+    .contentArea {
+        display: block !important;
+        height: auto !important;
+        overflow: visible !important;
+        background: #fff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
     .printOnlyReport {
         display: block !important;
         background: #fff;
         padding: 0;
         color: #000;
+        margin: 0;
     }
     .kTable th { background: transparent !important; }
 }
