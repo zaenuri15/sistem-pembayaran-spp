@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import styles from "./dashboard.module.css";
+import Image from "next/image";
 
 interface SantriData {
     id: string; // ID Pembayaran
@@ -16,6 +17,12 @@ interface SantriData {
     totalTagihan: number;
     dibayarkan: number;
     email?: string;
+    tagihan_detail?: {
+        spp: number;
+        kebersihan: number;
+        pembangunan: number;
+        konsumsi: number;
+    };
 }
 
 
@@ -59,7 +66,11 @@ export default function DashboardPage() {
                     tagihan_batch (
                         bulan,
                         tahun,
-                        total
+                        total,
+                        spp,
+                        kebersihan,
+                        pembangunan,
+                        konsumsi
                     )
                 `);
 
@@ -80,7 +91,13 @@ export default function DashboardPage() {
                     tahun: item.tagihan_batch.tahun,
                     totalTagihan: item.tagihan_batch.total,
                     dibayarkan: item.dibayarkan,
-                    email: item.santri.email
+                    email: item.santri.email,
+                    tagihan_detail: {
+                        spp: item.tagihan_batch.spp,
+                        kebersihan: item.tagihan_batch.kebersihan,
+                        pembangunan: item.tagihan_batch.pembangunan,
+                        konsumsi: item.tagihan_batch.konsumsi
+                    }
                 }));
                 // Sort by latest year, then month ascending (Jan -> Dec), then name
                 formattedData.sort((a, b) => {
@@ -135,6 +152,7 @@ export default function DashboardPage() {
     const getMonthName = (monthIndex: number) => {
         return new Date(0, monthIndex - 1).toLocaleString("id-ID", { month: "long" });
     };
+
 
     const getStatus = (item: SantriData) => {
         if (item.dibayarkan >= item.totalTagihan) return "Lunas";
@@ -228,6 +246,7 @@ export default function DashboardPage() {
             );
 
             alert(`Pembayaran ${formatCurrency(amount)} untuk ${selectedSantri.name} berhasil dicatat!`);
+            
             setIsPaymentModalOpen(false);
             setSelectedSantri(null);
             setPaymentAmount("");
@@ -245,8 +264,10 @@ export default function DashboardPage() {
 
     return (
         <div className={styles.pageContainer}>
-            {/* Stats Cards */}
-            <div className={styles.statsGrid}>
+            {/* Main Dashboard Content */}
+            <div>
+                {/* Stats Cards */}
+                <div className={styles.statsGrid}>
                 {/* Card 1: Pemasukan */}
                 <div className={styles.statCard}>
                     <div className={styles.statHeader}>
@@ -448,26 +469,29 @@ export default function DashboardPage() {
                                                 </span>
                                             </td>
                                             <td style={{ textAlign: 'center' }}>
-                                                {status !== "Lunas" ? (
-                                                    <button
-                                                        className={styles.paymentBtn}
-                                                        onClick={() => handleOpenPaymentModal(item)}
-                                                        title={`Input pembayaran untuk ${item.name}`}
-                                                    >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                            <rect x="2" y="5" width="20" height="14" rx="2" />
-                                                            <line x1="2" y1="10" x2="22" y2="10" />
-                                                        </svg>
-                                                        <span>Bayar</span>
-                                                    </button>
-                                                ) : (
-                                                    <span className={styles.paidIcon}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                                        </svg>
-                                                    </span>
-                                                )}
+                                                <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
+                                                    {status !== "Lunas" && (
+                                                        <button
+                                                            className={styles.paymentBtn}
+                                                            onClick={() => handleOpenPaymentModal(item)}
+                                                            title={`Input pembayaran untuk ${item.name}`}
+                                                        >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                                <rect x="2" y="5" width="20" height="14" rx="2" />
+                                                                <line x1="2" y1="10" x2="22" y2="10" />
+                                                            </svg>
+                                                            <span>Bayar</span>
+                                                        </button>
+                                                    )}
+                                                    {status === "Lunas" && (
+                                                        <span className={styles.paidIcon} title="Lunas">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                            </svg>
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </td>
                                         </tr>
                                     );
@@ -615,6 +639,8 @@ export default function DashboardPage() {
                     </div>
                 </div>
             )}
+            </div>
+
         </div>
     );
 }

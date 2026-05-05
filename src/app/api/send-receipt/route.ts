@@ -63,6 +63,9 @@ export async function POST(request: Request) {
         const htmlContent = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; color: #333;">
                 <div style="background-color: #0E5E35; padding: 25px; text-align: center;">
+                    <div style="margin-bottom: 15px;">
+                        <img src="https://via.placeholder.com/80/0E5E35/ffffff?text=PPI" alt="Logo" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid #ffffff;" />
+                    </div>
                     <h2 style="color: #ffffff; margin: 0; font-size: 24px;">Kwitansi Pembayaran SPP</h2>
                     <p style="color: #c8e6c9; margin: 5px 0 0 0; font-size: 14px;">Pondok Pesantren Inayatullah</p>
                 </div>

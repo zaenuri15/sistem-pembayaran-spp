@@ -757,15 +757,18 @@ export default function WaliPage() {
                     <div className={styles.kwitansiWrapper}>
                         <div className={styles.kTopHeader}>
                             <div className={styles.kLogoAndText}>
-                                <Image src="/images/logo.png" width={60} height={60} alt="Logo" style={{ borderRadius: '50%' }} />
+                                <Image src="/images/logo.png" width={70} height={70} alt="Logo" style={{ borderRadius: '50%' }} />
                                 <div className={styles.kSchoolInfo}>
-                                    <div style={{ fontSize: '11px', textTransform: 'uppercase' }}>Yayasan Pondok Pesantren</div>
-                                    <div className={styles.kSchoolName}>PONDOK PESANTREN INAYATULLAH</div>
-                                    <div style={{ fontSize: '10px' }}>Jl. Monjali 20, Nandan Sariharjo Ngaglik Sleman Yogyakarta 55581 | Telp: 0812-XXXX-XXXX</div>
+                                    <div style={{ fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', color: '#0D9A4E' }}>Yayasan Pondok Pesantren</div>
+                                    <div className={styles.kSchoolName} style={{ fontSize: '20px', color: '#0D9A4E' }}>PONDOK PESANTREN INAYATULLAH</div>
+                                    <div style={{ fontSize: '10px', color: '#4B5563' }}>Jl. Monjali 20, Nandan Sariharjo Ngaglik Sleman Yogyakarta 55581</div>
+                                    <div style={{ fontSize: '10px', color: '#4B5563' }}>Telp: 0812-XXXX-XXXX | Email: ppinayatullah@gmail.com</div>
                                 </div>
                             </div>
                             <div className={styles.kTitle}>KWITANSI</div>
                         </div>
+
+                        <div style={{ height: '2px', backgroundColor: '#000', marginBottom: '20px' }}></div>
 
                         <div className={styles.kDetailsGrid}>
                             <div className={styles.kGroup}>
@@ -828,8 +831,29 @@ export default function WaliPage() {
                                 <div className={styles.kTerbilangText}>{terbilang(selectedKwitansi.dibayarkan)} Rupiah</div>
                             </div>
                             <div className={styles.kSignatureBox}>
-                                <div style={{ marginBottom: '40px' }}>Sleman, {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}<br />Penerima</div>
-                                <div style={{ fontWeight: 700, textDecoration: 'underline' }}>ADMIN KEUANGAN</div>
+                                <div style={{ marginBottom: '10px' }}>Sleman, {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
+                                <div style={{ position: 'relative', height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <div style={{ 
+                                        position: 'absolute', 
+                                        border: '2px solid rgba(13, 154, 78, 0.3)', 
+                                        borderRadius: '50%', 
+                                        width: '70px', 
+                                        height: '70px', 
+                                        display: 'flex', 
+                                        alignItems: 'center', 
+                                        justifycontent: 'center',
+                                        fontSize: '8px',
+                                        color: 'rgba(13, 154, 78, 0.5)',
+                                        transform: 'rotate(-15deg)',
+                                        fontWeight: 'bold',
+                                        textAlign: 'center',
+                                        padding: '5px'
+                                    }}>
+                                        CAP RESMI<br/>PONDOK
+                                    </div>
+                                    <div style={{ fontStyle: 'italic', fontSize: '12px', zIndex: 1 }}>Penerima,</div>
+                                </div>
+                                <div style={{ fontWeight: 700, textDecoration: 'underline', marginTop: '10px' }}>ADMIN KEUANGAN</div>
                             </div>
                         </div>
                     </div>
