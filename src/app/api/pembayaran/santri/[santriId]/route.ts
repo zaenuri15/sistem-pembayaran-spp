@@ -13,12 +13,18 @@ export async function GET(
     try {
         const { santriId } = await params;
 
+        // Parse ke integer karena kolom 'id' di tabel santri bertipe integer
+        const santriIdInt = parseInt(santriId, 10);
+        if (isNaN(santriIdInt)) {
+            return notFoundError('ID Santri tidak valid');
+        }
+
         // Verify santri exists
         const { data: santri, error: santriError } = await supabaseServer
             .from('santri')
-            .select('id, nis, nama, kelas, nama_wali')
-            .eq('id', santriId)
-            .single();
+            .select('id, nis, nama, kelas, jenis_kelamin, tanggal_lahir, alamat, email, nama_wali')
+            .eq('id', santriIdInt)
+            .maybeSingle();
 
         if (santriError || !santri) {
             return notFoundError('Santri tidak ditemukan');
@@ -43,22 +49,12 @@ export async function GET(
                     total
                 )
             `)
-            .eq('santri_id', santriId);
+            .eq('santri_id', santriIdInt);
 
         if (paymentsError) {
-            console.error('Error fetching payments:', {
-                error: paymentsError,
-                message: paymentsError.message,
-                details: paymentsError.details,
-                hint: paymentsError.hint,
-                code: paymentsError.code,
-                santriId
-            });
+            console.error('Error fetching payments:', paymentsError.message);
             return errorResponse(`Gagal mengambil data pembayaran: ${paymentsError.message}`, 500);
         }
-
-        // Log untuk debugging
-        console.log(`Fetched ${payments?.length || 0} payment records for santri ${santriId}`);
 
         return successResponse({
             santri,

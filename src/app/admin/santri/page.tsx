@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import styles from "./santri.module.css";
 
-// Interface matches Supabase table + UI needs
 interface Santri {
     id: number; // Database ID (BigInt)
     nis: string;
@@ -38,7 +37,7 @@ export default function DataSantriPage() {
         kelas: "",
         alamat: "",
         namaWali: "",
-        email: ""
+        email: "",
     });
 
     useEffect(() => {
@@ -114,7 +113,7 @@ export default function DataSantriPage() {
             kelas: "",
             alamat: "",
             namaWali: "",
-            email: ""
+            email: "",
         });
         setIsModalOpen(true);
     };
@@ -132,7 +131,7 @@ export default function DataSantriPage() {
             kelas: santri.kelas,
             alamat: santri.alamat,
             namaWali: santri.nama_wali,
-            email: santri.email || ""
+            email: santri.email || "",
         });
         setIsModalOpen(true);
     };
@@ -162,7 +161,7 @@ export default function DataSantriPage() {
             kelas: formData.kelas,
             alamat: formData.alamat,
             nama_wali: formData.namaWali,
-            email: formData.email
+            email: formData.email,
         };
 
         if (isEditMode) {
@@ -515,6 +514,7 @@ export default function DataSantriPage() {
                                         />
                                         <span className={styles.inputHint}>Otomatis dibuat berdasarkan nama (bisa diubah)</span>
                                     </div>
+
                                 </div>
                             </div>
 

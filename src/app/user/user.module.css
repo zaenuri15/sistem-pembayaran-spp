@@ -1,52 +1,127 @@
-/* User Layout */
 .layoutContainer {
-    height: 100vh;
-    overflow-y: auto;
-    background-color: #F3F4F6;
-}
-
-.navbar {
-    background: #fff;
-    padding: 16px 32px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    height: 100vh;
+    width: 100vw;
+    background-color: #F8F9FD;
+    font-family: var(--font-inter), sans-serif;
 }
 
-.navBrand {
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    border-right: 1px solid #E5E7EB;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    flex-shrink: 0;
+}
+
+.logoSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.logoText {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.logoName {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0D9A4E;
+    line-height: 1.3;
+}
+
+.logoSubtitle {
+    font-size: 11px;
+    font-weight: 500;
+    color: #6B7280;
+    line-height: 1.3;
+}
+
+.menuContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.menuSection {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menuItem {
     display: flex;
     align-items: center;
     gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4B5563;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-.navTitle {
-    font-size: 18px;
-    font-weight: 700;
+.menuItemActive {
+    background-color: #E6F5ED;
     color: #0D9A4E;
 }
 
-.navSubtitle {
-    font-size: 12px;
-    color: #6B7280;
+.menuItem:hover:not(.menuItemActive) {
+    background-color: #F3F4F6;
+    color: #111827;
 }
 
-.navUser {
+/* Content Area */
+.contentArea {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Topbar */
+.topbar {
+    height: 80px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    color: #374151;
-    font-weight: 500;
+    justify-content: space-between;
+    padding: 0 32px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #E5E7EB;
 }
 
+.userActions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.userProfile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+/* Main Content */
 .mainContent {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 32px 24px;
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px;
 }
 
 /* Page Header */
@@ -553,3 +628,611 @@
         padding: 20px 12px;
     }
 }
+
+/* FAQ & Bantuan */
+.faqCard {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    padding: 24px;
+    margin-top: 24px;
+}
+
+.faqTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.faqList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.faqItem {
+    background: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.faqQuestion {
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.faqAnswer {
+    color: #4B5563;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.faqChatBox {
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.faqChatText {
+    font-size: 15px;
+    font-weight: 600;
+    color: #065F46;
+    margin: 0 0 16px 0;
+}
+
+.faqChatButtons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.faqChatBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #25D366;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.faqChatBtn:hover {
+    background-color: #1ebe5d;
+}
+
+.faqChatBtnPutri {
+    background-color: #7C3AED;
+}
+
+.faqChatBtnPutri:hover {
+    background-color: #6D28D9;
+}
+
+
+    
+    /* ---------- Accordions & Informasi ---------- */
+    .infoSection {
+        margin-bottom: 24px;
+    }
+    
+    .infoMainTitle {
+        font-size: 18px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .accordionItem {
+        background: #fff;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        border: 1px solid #E5E7EB;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .accordionHeader {
+        width: 100%;
+        text-align: left;
+        padding: 16px 20px;
+        background: #fff;
+        border: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        color: #111827;
+        transition: background 0.2s;
+    }
+    
+    .accordionHeader:hover {
+        background: #F9FAFB;
+    }
+    
+    .accordionHeaderLeft {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .accordionIcon {
+        transition: transform 0.3s ease;
+        color: #6B7280;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .accordionIcon.open {
+        transform: rotate(180deg);
+    }
+    
+    .accordionContent {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+        background: #FAFAFA;
+    }
+    
+    .accordionContent.open {
+        max-height: 3000px;
+    }
+    
+    .accordionInner {
+        padding: 20px;
+        font-size: 14px;
+        color: #374151;
+        line-height: 1.6;
+        border-top: 1px solid #F3F4F6;
+    }
+    
+    .infoTitle {
+        font-size: 15px;
+        font-weight: 700;
+        color: #0D9A4E;
+        margin: 20px 0 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px dashed #D1D5DB;
+    }
+    
+    .infoTitle:first-child {
+        margin-top: 0;
+    }
+    
+    .infoList {
+        margin: 0;
+        padding-left: 20px;
+    }
+    
+    .infoList li {
+        margin-bottom: 6px;
+    }
+    
+    .infoSubList {
+        margin: 6px 0 6px 0;
+        padding-left: 20px;
+        list-style-type: circle;
+    }
+    
+    .infoGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+        margin-top: 12px;
+    }
+    
+    .infoCard {
+        background: #fff;
+        border: 1px solid #E5E7EB;
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    
+    .infoCardTitle {
+        font-size: 14px;
+        font-weight: 700;
+        color: #1F2937;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .infoHighlight {
+        background: #FEF3C7;
+        padding: 10px 14px;
+        border-radius: 6px;
+        border-left: 4px solid #F59E0B;
+        margin: 12px 0;
+        font-size: 13px;
+        color: #92400E;
+    }
+    
+    .badgeSm {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-right: 8px;
+    }
+
+/* ---------- Responsive & Mobile Navigation ---------- */
+
+.hamburgerBtn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #4B5563;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.hamburgerBtn:hover {
+    background-color: #F3F4F6;
+}
+
+.mobileOverlay {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .hamburgerBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobileOverlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 40;
+        backdrop-filter: blur(2px);
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 50;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebarOpen {
+        transform: translateX(0);
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .topbar {
+        padding: 0 16px;
+    }
+
+    .mainContent {
+        padding: 20px 16px;
+    }
+
+    .summaryGrid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .pageHeader {
+        flex-direction: column;
+    }
+
+    .greeting {
+        font-size: 18px;
+    }
+}
+
+/* ===================== */
+/* PROFIL SANTRI SECTION */
+/* ===================== */
+
+.profilContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profilHeroCard {
+    background: linear-gradient(135deg, #0D9A4E 0%, #059669 50%, #047857 100%);
+    border-radius: 18px;
+    padding: 32px 36px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    box-shadow: 0 8px 32px rgba(13, 154, 78, 0.28);
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+}
+
+.profilHeroCard::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.profilHeroCard::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    right: 120px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.profilAvatarWrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profilAvatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.profilAvatarText {
+    font-size: 30px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -1px;
+    user-select: none;
+}
+
+.profilAvatarBadge {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #F59E0B;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profilHeroInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1;
+}
+
+.profilNama {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0;
+    line-height: 1.2;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+.profilNisBadge {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 3px 12px;
+    width: fit-content;
+    letter-spacing: 0.04em;
+}
+
+.profilKelasBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 4px 12px;
+    width: fit-content;
+}
+
+/* Data Grid */
+.profilDataGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.profilDataCard {
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    border: 1px solid #E5E7EB;
+}
+
+.profilDataCardTitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #E6F5ED;
+}
+
+.profilDataList {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.profilDataRow {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 0;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.profilDataRow:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.profilDataLabel {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #9CA3AF;
+}
+
+.profilDataValue {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+    line-height: 1.5;
+}
+
+.profilNisCode {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: #0D9A4E;
+    letter-spacing: 2px;
+    background: #F0FDF4;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.profilGenderBadgePutra {
+    display: inline-block;
+    background: #DBEAFE;
+    color: #1E40AF;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.profilGenderBadgePutri {
+    display: inline-block;
+    background: #FCE7F3;
+    color: #9D174D;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.profilEmailLink {
+    color: #0D9A4E;
+    text-decoration: none;
+    font-weight: 600;
+    word-break: break-all;
+}
+
+.profilEmailLink:hover {
+    text-decoration: underline;
+}
+
+.profilWaLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #25D366;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.profilWaLink:hover {
+    background-color: #1ebe5d;
+}
+
+
+.profilNote {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: #92400E;
+    background-color: #FEF3C7;
+    border: 1px solid #FDE68A;
+    border-radius: 10px;
+    padding: 14px 16px;
+    line-height: 1.5;
+}
+
+/* Responsive profil */
+@media (max-width: 768px) {
+    .profilHeroCard {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 20px;
+    }
+
+    .profilNisBadge,
+    .profilKelasBadge {
+        margin: 0 auto;
+    }
+
+    .profilDataGrid {
+        grid-template-columns: 1fr;
+    }
+}
+

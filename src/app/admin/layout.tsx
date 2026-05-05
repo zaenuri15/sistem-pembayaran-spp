@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 import styles from "./admin.module.css";
 
 export default function AdminLayout({
@@ -12,6 +13,7 @@ export default function AdminLayout({
 }) {
     const pathname = usePathname();
     const router = useRouter();
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const handleLogout = () => {
         if (confirm("Apakah Anda yakin ingin keluar?")) {
@@ -21,8 +23,16 @@ export default function AdminLayout({
 
     return (
         <div className={styles.container}>
+            {/* Mobile Overlay */}
+            {isMobileMenuOpen && (
+                <div 
+                    className={styles.mobileOverlay} 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                />
+            )}
+
             {/* Sidebar */}
-            <aside className={styles.sidebar}>
+            <aside className={`${styles.sidebar} ${isMobileMenuOpen ? styles.sidebarOpen : ''}`}>
                 <div className={styles.logoSection}>
                     <Image
                         src="/images/logo.png"
@@ -94,7 +104,19 @@ export default function AdminLayout({
             <div className={styles.contentArea}>
                 {/* Topbar */}
                 <header className={styles.topbar}>
-                    <div />
+                    <div className={styles.topbarLeft}>
+                        <button 
+                            className={styles.hamburgerBtn}
+                            onClick={() => setIsMobileMenuOpen(true)}
+                            aria-label="Open Menu"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="3" y1="12" x2="21" y2="12"></line>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <line x1="3" y1="18" x2="21" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
 
                     <div className={styles.userActions}>
                         <div className={styles.userProfile}>

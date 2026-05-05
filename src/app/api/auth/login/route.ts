@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
         }
 
         // 1. Check Admin Login
-        const { data: adminData, error: adminError } = await supabaseServer
+        const { data: adminData } = await supabaseServer
             .from('admin')
             .select('*')
             .eq('username', username)
@@ -35,10 +35,14 @@ export async function POST(request: NextRequest) {
         // 2. Check Santri Login (NIS + Password)
         const { data: santriData, error: santriError } = await supabaseServer
             .from('santri')
-            .select('*')
+            .select('id, nis, nama, kelas, password')
             .eq('nis', username)
             .eq('password', password)
-            .single();
+            .maybeSingle();
+
+        if (santriError) {
+            console.error('[Login] Santri query error:', santriError.message);
+        }
 
         if (santriData) {
             return successResponse({
@@ -57,10 +61,14 @@ export async function POST(request: NextRequest) {
         // 3. Check Wali Login (Nama Wali + Password Santri)
         const { data: waliData, error: waliError } = await supabaseServer
             .from('santri')
-            .select('*')
+            .select('id, nis, nama, nama_wali, password')
             .ilike('nama_wali', username)
             .eq('password', password)
-            .single();
+            .maybeSingle();
+
+        if (waliError) {
+            console.error('[Login] Wali query error:', waliError.message);
+        }
 
         if (waliData) {
             return successResponse({

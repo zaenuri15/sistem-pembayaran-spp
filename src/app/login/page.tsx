@@ -59,8 +59,8 @@ export default function LoginPage() {
             return;
         }
 
-        setSuccessMsg("Login berhasil");
         setLoading(true);
+        setError("");
 
         try {
             const response = await fetch('/api/auth/login', {
@@ -75,19 +75,24 @@ export default function LoginPage() {
 
             if (!result.success) {
                 setError(result.error || 'Login gagal');
-                setSuccessMsg("");
                 setLoading(false);
                 triggerShake();
                 return;
             }
 
+            setSuccessMsg("Login berhasil! Mengalihkan...");
+
             // Store user data based on role
             const { role, userId, redirectTo } = result.data;
 
+            // Clear all previous role-specific localStorage to prevent stale data
+            localStorage.removeItem('user_santri_id');
+            localStorage.removeItem('user_wali_santri_id');
+
             if (role === 'santri') {
-                localStorage.setItem('user_santri_id', userId);
+                localStorage.setItem('user_santri_id', String(userId));
             } else if (role === 'wali') {
-                localStorage.setItem('user_wali_santri_id', userId);
+                localStorage.setItem('user_wali_santri_id', String(userId));
             }
 
             // Redirect to appropriate page
