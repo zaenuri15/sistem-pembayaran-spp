@@ -841,7 +841,7 @@ export default function WaliPage() {
                                         height: '70px', 
                                         display: 'flex', 
                                         alignItems: 'center', 
-                                        justifycontent: 'center',
+                                        justifyContent: 'center',
                                         fontSize: '8px',
                                         color: 'rgba(13, 154, 78, 0.5)',
                                         transform: 'rotate(-15deg)',
