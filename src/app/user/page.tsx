@@ -592,7 +592,7 @@ export default function UserPage() {
                                                 <li><strong>Tahsin:</strong> Perbaikan makhraj & tajwid</li>
                                             </ul>
 
-                                            <div className={styles.infoTitle} style={{ marginTop: '24px' }}>🏫 Struktur Kelas Pondok Mahasiswa</div>
+                                            <div className={styles.infoTitle} style={{ marginTop: '24px' }}>🏫 Struktur Kelas Pondok Pesantren Inayatullah</div>
                                             <div className={styles.infoGrid}>
                                                 <div className={styles.infoCard}>
                                                     <div className={styles.infoCardTitle}><span className={styles.badgeSm} style={{ background: '#D1FAE5', color: '#065F46' }}>1</span> Kelas Ibtida’ (Dasar)</div>
